@@ -1,0 +1,6 @@
+{
+  "name": "Ramble",
+  "description": "A thinking partner and writing environment designed for deep focus and structured ideation.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
