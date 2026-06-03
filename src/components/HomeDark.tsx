@@ -60,21 +60,21 @@ export default function HomeDark({
 
   return (
     <div className="h-screen bg-[#131316] text-[#ffffff] font-sans flex flex-col selection:bg-white/10 overflow-hidden" id="home-dark-container">
-      
+
       {/* ==================== SCREEN 1: MOBILE VIEW (md and below) ==================== */}
       <div className="flex md:hidden flex-col h-full bg-[#131316] text-white overflow-y-auto no-scrollbar relative" id="mobile-home-dark">
         {/* TopAppBar */}
         <header className="fixed top-0 w-full bg-[#131316]/95 backdrop-blur-md flex justify-between items-center h-16 px-6 z-50 border-b border-white/[0.05]" id="mobile-header-dark">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <button 
-                className="w-8 h-8 rounded-full bg-[#2a2a2d] border border-white/10 overflow-hidden cursor-pointer flex items-center justify-center focus:outline-none" 
-                onClick={() => setIsProfileOpen(!isProfileOpen)} 
+              <button
+                className="w-8 h-8 rounded-full bg-[#2a2a2d] border border-white/10 overflow-hidden cursor-pointer flex items-center justify-center focus:outline-none"
+                onClick={() => setIsProfileOpen(!isProfileOpen)}
                 id="mobile-profile-avatar-dark"
               >
-                <img 
-                  alt="User Profile" 
-                  className="w-full h-full object-cover" 
+                <img
+                  alt="User Profile"
+                  className="w-full h-full object-cover"
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi5BhsV1NMrog6jzCVcbTi9cdthlVYpTVNdBbXt2gSuvkrKpS1dtbrZBuxSRfp5hnnol3q_alvPToRvdN5NGe8oWUI3Pjf0sHqKAgDTtX-ofN1zaGcK83QqWJfe8Eu4_YoqZ8LWxTgDuBdELv3wa67qcsZX4Nz3PYy1Y1pVlPQXVawu5hq9g_lvaj40wzs6l0z93RHvdmy7qL8EyfF_WGPfJjlXBxxe1dV5tV5KJMHduQlsM2ohcvceCHhdmzwzChoCrpz-BPTebw"
                   referrerPolicy="no-referrer"
                 />
@@ -83,14 +83,14 @@ export default function HomeDark({
                 {isProfileOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)} />
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute left-0 top-full mt-2 w-48 bg-[#1e1e24] border border-white/10 rounded-lg shadow-2xl z-50 overflow-hidden text-left"
                     >
                       <div className="py-1 select-none">
-                        <button 
+                        <button
                           onClick={() => {
                             setIsSettingsOpen(true);
                             setIsProfileOpen(false);
@@ -100,7 +100,7 @@ export default function HomeDark({
                           <Settings className="h-4 w-4" />
                           Settings
                         </button>
-                        <button 
+                        <button
                           onClick={() => {
                             setIsProfileOpen(false);
                             onSignOut();
@@ -120,8 +120,8 @@ export default function HomeDark({
           <h1 className="font-brand text-[22px] font-bold tracking-wider text-white uppercase select-none cursor-pointer" onClick={onLogoClick} id="mobile-brand-title-dark text-primary">
             RAMBLE.
           </h1>
-          <button 
-            onClick={onToggleTheme} 
+          <button
+            onClick={onToggleTheme}
             className="text-[#a1a1aa] hover:text-white transition-opacity p-2 rounded-lg"
             title="Toggle Theme"
             id="mobile-theme-toggle-dark"
@@ -134,7 +134,7 @@ export default function HomeDark({
         <div className="px-6 pt-24 pb-2" id="mobile-search-bar-dark">
           <div className="relative">
             <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-[#a1a1aa]" />
-            <input 
+            <input
               type="text"
               placeholder="Search your rambles..."
               value={searchQuery}
@@ -158,7 +158,7 @@ export default function HomeDark({
         <main className="px-6 pb-32 flex-1" id="mobile-main-grid-dark">
           <div className="grid grid-cols-1 gap-4">
             {sortedNotes.map((note) => (
-              <div 
+              <div
                 key={note.id}
                 onClick={() => onSelectNote(note)}
                 className="group bg-[#1b1b1e] border border-white/5 p-5 rounded-2xl active:scale-[0.98] transition-all hover:bg-[#2a2a2d] cursor-pointer flex flex-col justify-between"
@@ -168,7 +168,7 @@ export default function HomeDark({
                   <span className="text-[10px] uppercase font-semibold text-[#b7b4bb] tracking-widest">
                     {note.version} • {note.date || '08 JAN'}
                   </span>
-                  <button 
+                  <button
                     onClick={(e) => {
                       e.stopPropagation();
                       onDeleteNote(note.id, e);
@@ -195,7 +195,7 @@ export default function HomeDark({
             {sortedNotes.length === 0 && (
               <div className="text-center py-16 text-[#a1a1aa] bg-[#1b1b1e] rounded-2xl p-6 border border-white/5" id="mobile-empty-view-dark">
                 <p className="text-sm">No thoughts found.</p>
-                <button 
+                <button
                   onClick={onAddNote}
                   className="mt-2 text-xs font-bold uppercase text-white hover:underline"
                 >
@@ -207,7 +207,7 @@ export default function HomeDark({
         </main>
 
         {/* Mobile FAB: New Ramble */}
-        <button 
+        <button
           onClick={onAddNote}
           className="fixed bottom-8 right-6 w-14 h-14 bg-white text-[#131316] rounded-full shadow-2xl flex items-center justify-center z-40 hover:scale-105 active:scale-95 transition-transform duration-150"
           title="New Ramble"
@@ -220,7 +220,7 @@ export default function HomeDark({
       {/* ==================== SCREEN 2: DESKTOP VIEW (md and up) ==================== */}
       <div className="hidden md:flex flex-col h-full w-full overflow-y-auto no-scrollbar" id="desktop-home-dark">
         {/* Main Header */}
-        <header className="h-16 border-b border-[#2d2d31] flex items-center justify-between px-8 sticky top-0 bg-[#131316]/90 backdrop-blur-md z-50" id="desktop-header-dark">
+        <header className="py-8 h-16 border-b border-[#2d2d31] flex items-center justify-between px-8 sticky top-0 bg-[#131316]/90 backdrop-blur-md z-50" id="desktop-header-dark">
           {/* Brand Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={onLogoClick} id="desktop-logo-container-dark">
             <span className="font-brand text-[22px] font-bold tracking-wider text-white uppercase select-none">
@@ -256,7 +256,7 @@ export default function HomeDark({
               <Sun className="h-5 w-5" />
             </button>
             <div className="relative">
-              <button 
+              <button
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="h-8 w-8 rounded-full overflow-hidden border border-[#2d2d31] hover:border-white/30 transition-colors focus:outline-none cursor-pointer"
                 title="Open Profile Menu"
@@ -273,14 +273,14 @@ export default function HomeDark({
                 {isProfileOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)} />
-                    <motion.div 
+                    <motion.div
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute right-0 top-full mt-2 w-48 bg-[#1e1e24] border border-white/10 rounded-lg shadow-2xl z-50 overflow-hidden text-left"
                     >
                       <div className="py-1 select-none">
-                        <button 
+                        <button
                           onClick={() => {
                             setIsSettingsOpen(true);
                             setIsProfileOpen(false);
@@ -290,7 +290,7 @@ export default function HomeDark({
                           <Settings className="h-4 w-4" />
                           Settings
                         </button>
-                        <button 
+                        <button
                           onClick={() => {
                             setIsProfileOpen(false);
                             onSignOut();
@@ -516,14 +516,14 @@ export default function HomeDark({
       <AnimatePresence>
         {isSettingsOpen && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center select-none font-sans text-white">
-            <motion.div 
+            <motion.div
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
                exit={{ opacity: 0 }}
                onClick={() => setIsSettingsOpen(false)}
-               className="absolute inset-0 bg-[#000000]/60 backdrop-blur-sm" 
+               className="absolute inset-0 bg-[#000000]/60 backdrop-blur-sm"
             />
-            <motion.div 
+            <motion.div
                initial={{ opacity: 0, scale: 0.95 }}
                animate={{ opacity: 1, scale: 1 }}
                exit={{ opacity: 0, scale: 0.95 }}
@@ -531,7 +531,7 @@ export default function HomeDark({
             >
               <div className="flex justify-between items-center pb-4 border-b border-white/5 mb-4">
                 <h2 className="font-brand text-lg text-white tracking-[0.1em] uppercase font-bold">Settings</h2>
-                <button 
+                <button
                   onClick={() => setIsSettingsOpen(false)}
                   className="text-neutral-400 hover:text-white hover:bg-white/5 p-1 rounded-md transition-colors text-lg font-bold"
                 >
@@ -542,8 +542,8 @@ export default function HomeDark({
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-500 mb-1">User Account</h3>
                   <div className="bg-white/5 border border-white/5 p-3 rounded-lg flex items-center gap-3">
-                    <img 
-                      className="w-10 h-10 rounded-full object-cover ring-1 ring-white/10" 
+                    <img
+                      className="w-10 h-10 rounded-full object-cover ring-1 ring-white/10"
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi5BhsV1NMrog6jzCVcbTi9cdthlVYpTVNdBbXt2gSuvkrKpS1dtbrZBuxSRfp5hnnol3q_alvPToRvdN5NGe8oWUI3Pjf0sHqKAgDTtX-ofN1zaGcK83QqWJfe8Eu4_YoqZ8LWxTgDuBdELv3wa67qcsZX4Nz3PYy1Y1pVlPQXVawu5hq9g_lvaj40wzs6l0z93RHvdmy7qL8EyfF_WGPfJjlXBxxe1dV5tV5KJMHduQlsM2ohcvceCHhdmzwzChoCrpz-BPTebw"
                       alt="Avatar"
                       referrerPolicy="no-referrer"
@@ -562,7 +562,7 @@ export default function HomeDark({
                 </div>
               </div>
               <div className="pt-4 border-t border-white/5 mt-auto flex justify-end">
-                <button 
+                <button
                   onClick={() => setIsSettingsOpen(false)}
                   className="px-4 py-2 bg-white hover:bg-neutral-200 text-xs font-bold tracking-[0.1em] text-black uppercase hover:shadow transition-all rounded cursor-pointer"
                 >
