@@ -62,21 +62,21 @@ export default function HomeLight({
 
   return (
     <div className="h-screen bg-[#faf9f7] text-[#1a1c1b] font-sans flex flex-col selection:bg-black/5 overflow-hidden" id="home-light-container">
-
+      
       {/* ==================== SCREEN 1: MOBILE VIEW (md and below) ==================== */}
       <div className="flex md:hidden flex-col h-full bg-[#faf9f7] text-[#1a1c1b] overflow-y-auto no-scrollbar relative" id="mobile-home-light">
         {/* TopAppBar */}
         <header className="fixed top-0 w-full bg-[#faf9f7]/95 backdrop-blur-md flex justify-between items-center h-16 px-6 z-50 border-b border-black/[0.05]" id="mobile-header-light">
           <div className="flex items-center gap-3">
             <div className="relative">
-              <button
-                className="w-8 h-8 rounded-full bg-[#efeeec] border border-black/10 overflow-hidden cursor-pointer flex items-center justify-center focus:outline-none"
-                onClick={() => setIsProfileOpen(!isProfileOpen)}
+              <button 
+                className="w-8 h-8 rounded-full bg-[#efeeec] border border-black/10 overflow-hidden cursor-pointer flex items-center justify-center focus:outline-none" 
+                onClick={() => setIsProfileOpen(!isProfileOpen)} 
                 id="mobile-profile-avatar-light"
               >
-                <img
-                  alt="User Profile"
-                  className="w-full h-full object-cover"
+                <img 
+                  alt="User Profile" 
+                  className="w-full h-full object-cover" 
                   src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi5BhsV1NMrog6jzCVcbTi9cdthlVYpTVNdBbXt2gSuvkrKpS1dtbrZBuxSRfp5hnnol3q_alvPToRvdN5NGe8oWUI3Pjf0sHqKAgDTtX-ofN1zaGcK83QqWJfe8Eu4_YoqZ8LWxTgDuBdELv3wa67qcsZX4Nz3PYy1Y1pVlPQXVawu5hq9g_lvaj40wzs6l0z93RHvdmy7qL8EyfF_WGPfJjlXBxxe1dV5tV5KJMHduQlsM2ohcvceCHhdmzwzChoCrpz-BPTebw"
                   referrerPolicy="no-referrer"
                 />
@@ -85,14 +85,14 @@ export default function HomeLight({
                 {isProfileOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)} />
-                    <motion.div
+                    <motion.div 
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute left-0 top-full mt-2 w-48 bg-white border border-black/10 rounded-lg shadow-2xl z-50 overflow-hidden text-left"
                     >
                       <div className="py-1 select-none">
-                        <button
+                        <button 
                           onClick={() => {
                             setIsSettingsOpen(true);
                             setIsProfileOpen(false);
@@ -102,7 +102,7 @@ export default function HomeLight({
                           <Settings className="h-4 w-4" />
                           Settings
                         </button>
-                        <button
+                        <button 
                           onClick={() => {
                             setIsProfileOpen(false);
                             onSignOut();
@@ -122,8 +122,8 @@ export default function HomeLight({
           <h1 className="font-brand text-[22px] font-bold tracking-wider text-black uppercase select-none cursor-pointer" onClick={onLogoClick} id="mobile-brand-title-light text-primary">
             RAMBLE.
           </h1>
-          <button
-            onClick={onToggleTheme}
+          <button 
+            onClick={onToggleTheme} 
             className="text-[#5d5e61] hover:text-black transition-opacity p-2 rounded-lg"
             title="Toggle Theme"
             id="mobile-theme-toggle-light"
@@ -136,7 +136,7 @@ export default function HomeLight({
         <div className="px-6 pt-24 pb-2" id="mobile-search-bar-light">
           <div className="relative">
             <Search className="absolute left-3.5 top-3.5 h-4 w-4 text-[#5d5e61]" />
-            <input
+            <input 
               type="text"
               placeholder="Search your rambles..."
               value={searchQuery}
@@ -160,7 +160,7 @@ export default function HomeLight({
         <main className="px-6 pb-32 flex-1" id="mobile-main-grid-light">
           <div className="grid grid-cols-1 gap-4">
             {sortedNotes.map((note) => (
-              <div
+              <div 
                 key={note.id}
                 onClick={() => onSelectNote(note)}
                 className="group bg-white border border-[#c4c7c7] p-5 rounded-2xl active:scale-[0.98] transition-all hover:bg-[#efeeec]/50 cursor-pointer flex flex-col justify-between"
@@ -170,7 +170,7 @@ export default function HomeLight({
                   <span className="text-[10px] uppercase font-semibold text-[#5d5e61] tracking-widest">
                     {note.version} • {note.date || '08 JAN'}
                   </span>
-                  <button
+                  <button 
                     onClick={(e) => {
                       e.stopPropagation();
                       onDeleteNote(note.id, e);
@@ -197,7 +197,7 @@ export default function HomeLight({
             {sortedNotes.length === 0 && (
               <div className="text-center py-16 text-[#5d5e61] bg-white rounded-2xl p-6 border border-[#c4c7c7]" id="mobile-empty-view-light">
                 <p className="text-sm">No thoughts found.</p>
-                <button
+                <button 
                   onClick={onAddNote}
                   className="mt-2 text-xs font-bold uppercase text-black hover:underline"
                 >
@@ -209,7 +209,7 @@ export default function HomeLight({
         </main>
 
         {/* Mobile FAB: New Ramble */}
-        <button
+        <button 
           onClick={onAddNote}
           className="fixed bottom-8 right-6 w-14 h-14 bg-black text-[#faf9f7] rounded-full shadow-2xl flex items-center justify-center z-40 hover:scale-105 active:scale-95 transition-transform duration-150"
           title="New Ramble"
@@ -222,7 +222,7 @@ export default function HomeLight({
       {/* ==================== SCREEN 2: DESKTOP VIEW (md and up) ==================== */}
       <div className="hidden md:flex flex-col h-full w-full overflow-y-auto no-scrollbar" id="desktop-home-light">
         {/* Main Header */}
-        <header className="h-16 py-8 border-b border-[#c4c7c7] flex items-center justify-between px-8 sticky top-0 bg-[#faf9f7]/85 backdrop-blur-md z-50" id="desktop-header-light">
+        <header className="h-16 border-b border-[#c4c7c7] flex items-center justify-between px-8 sticky top-0 bg-[#faf9f7]/85 backdrop-blur-md z-50" id="desktop-header-light">
           {/* Brand Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={onLogoClick} id="desktop-logo-container-light">
             <span className="font-brand text-[22px] font-bold tracking-wider text-black uppercase select-none">
@@ -258,7 +258,7 @@ export default function HomeLight({
               <Moon className="h-5 w-5" />
             </button>
             <div className="relative">
-              <button
+              <button 
                 onClick={() => setIsProfileOpen(!isProfileOpen)}
                 className="h-8 w-8 rounded-full overflow-hidden border border-[#c4c7c7] hover:border-black/30 transition-colors focus:outline-none cursor-pointer"
                 title="Open Profile Menu"
@@ -275,14 +275,14 @@ export default function HomeLight({
                 {isProfileOpen && (
                   <>
                     <div className="fixed inset-0 z-40" onClick={() => setIsProfileOpen(false)} />
-                    <motion.div
+                    <motion.div 
                       initial={{ opacity: 0, y: 10 }}
                       animate={{ opacity: 1, y: 0 }}
                       exit={{ opacity: 0, y: 10 }}
                       className="absolute right-0 top-full mt-2 w-48 bg-white border border-black/10 rounded-lg shadow-2xl z-50 overflow-hidden text-left"
                     >
                       <div className="py-1 select-none">
-                        <button
+                        <button 
                           onClick={() => {
                             setIsSettingsOpen(true);
                             setIsProfileOpen(false);
@@ -292,7 +292,7 @@ export default function HomeLight({
                           <Settings className="h-4 w-4" />
                           Settings
                         </button>
-                        <button
+                        <button 
                           onClick={() => {
                             setIsProfileOpen(false);
                             onSignOut();
@@ -518,14 +518,14 @@ export default function HomeLight({
       <AnimatePresence>
         {isSettingsOpen && (
           <div className="fixed inset-0 z-[200] flex items-center justify-center select-none font-sans">
-            <motion.div
+            <motion.div 
                initial={{ opacity: 0 }}
                animate={{ opacity: 1 }}
                exit={{ opacity: 0 }}
                onClick={() => setIsSettingsOpen(false)}
-               className="absolute inset-0 bg-[#000000]/40 backdrop-blur-sm"
+               className="absolute inset-0 bg-[#000000]/40 backdrop-blur-sm" 
             />
-            <motion.div
+            <motion.div 
                initial={{ opacity: 0, scale: 0.95 }}
                animate={{ opacity: 1, scale: 1 }}
                exit={{ opacity: 0, scale: 0.95 }}
@@ -533,7 +533,7 @@ export default function HomeLight({
             >
               <div className="flex justify-between items-center pb-4 border-b border-black/5 mb-4">
                 <h2 className="font-brand text-lg text-black tracking-[0.1em] uppercase font-bold">Settings</h2>
-                <button
+                <button 
                   onClick={() => setIsSettingsOpen(false)}
                   className="text-neutral-400 hover:text-black hover:bg-neutral-100 p-1 rounded-md transition-colors text-lg font-bold"
                 >
@@ -544,8 +544,8 @@ export default function HomeLight({
                 <div>
                   <h3 className="text-xs font-bold uppercase tracking-wider text-neutral-400 mb-1">User Account</h3>
                   <div className="bg-neutral-50 border border-black/5 p-3 rounded-lg flex items-center gap-3">
-                    <img
-                      className="w-10 h-10 rounded-full object-cover ring-1 ring-black/10"
+                    <img 
+                      className="w-10 h-10 rounded-full object-cover ring-1 ring-black/10" 
                       src="https://lh3.googleusercontent.com/aida-public/AB6AXuCi5BhsV1NMrog6jzCVcbTi9cdthlVYpTVNdBbXt2gSuvkrKpS1dtbrZBuxSRfp5hnnol3q_alvPToRvdN5NGe8oWUI3Pjf0sHqKAgDTtX-ofN1zaGcK83QqWJfe8Eu4_YoqZ8LWxTgDuBdELv3wa67qcsZX4Nz3PYy1Y1pVlPQXVawu5hq9g_lvaj40wzs6l0z93RHvdmy7qL8EyfF_WGPfJjlXBxxe1dV5tV5KJMHduQlsM2ohcvceCHhdmzwzChoCrpz-BPTebw"
                       alt="Avatar"
                       referrerPolicy="no-referrer"
@@ -564,7 +564,7 @@ export default function HomeLight({
                 </div>
               </div>
               <div className="pt-4 border-t border-black/5 mt-auto flex justify-end">
-                <button
+                <button 
                   onClick={() => setIsSettingsOpen(false)}
                   className="px-4 py-2 bg-black hover:bg-neutral-800 text-xs font-bold tracking-[0.1em] text-white uppercase hover:shadow transition-all rounded cursor-pointer"
                 >
