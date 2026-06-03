@@ -7,7 +7,7 @@ interface LandingPageProps {
 
 export default function LandingPage({ onNavigate }: LandingPageProps) {
   return (
-    <div className="relative h-screen text-[#1a1c1c] font-serif overflow-y-auto selection:bg-black/10">
+    <div className="relative h-screen text-[#1a1c1c] font-serif overflow-y-auto overflow-x-hidden selection:bg-black/10">
       {/* Animated Mesh Background */}
       <div className="mesh-gradient fixed inset-0 pointer-events-none" />
 

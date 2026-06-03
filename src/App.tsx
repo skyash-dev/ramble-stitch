@@ -48,6 +48,11 @@ const INITIAL_NOTES: RambleNote[] = [
 ];
 
 export default function App() {
+  // Theme state persisted in localStorage (defaults to light if not present)
+  const [theme, setTheme] = useState<'dark' | 'light'>(() => {
+    return (localStorage.getItem('ramble-theme') as 'dark' | 'light') || 'light';
+  });
+
   const [currentScreen, setCurrentScreen] = useState<ScreenType>('ramble-landing-page');
   const [transitionType, setTransitionType] = useState<'push' | 'push_back' | 'slide_up' | 'none'>('push');
   
@@ -64,11 +69,34 @@ export default function App() {
     setCurrentScreen(target);
   };
 
+  // Toggle theme controller syncing changes with localStorage
+  const handleToggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+    localStorage.setItem('ramble-theme', nextTheme);
+
+    // If the user is currently on an active page, transition to the themed equivalent
+    if (currentScreen === 'ramble-home-light') {
+      navigateTo('ramble-home-dark', 'none');
+    } else if (currentScreen === 'ramble-home-dark') {
+      navigateTo('ramble-home-light', 'none');
+    } else if (currentScreen === 'ramble-editor-light') {
+      navigateTo('ramble-editor-dark', 'none');
+    } else if (currentScreen === 'ramble-editor-dark') {
+      navigateTo('ramble-editor-light', 'none');
+    }
+  };
+
   // Select note handler
   const activeNote = notes.find((note) => note.id === selectedNoteId) || notes[0];
 
-  const handleSelectNote = (note: RambleNote, targetScreen: 'ramble-editor-dark' | 'ramble-editor-light') => {
+  const handleSignOut = () => {
+    navigateTo('ramble-landing-page', 'push_back');
+  };
+
+  const handleSelectNote = (note: RambleNote) => {
     setSelectedNoteId(note.id);
+    const targetScreen = theme === 'dark' ? 'ramble-editor-dark' : 'ramble-editor-light';
     navigateTo(targetScreen, 'push');
   };
 
@@ -79,7 +107,7 @@ export default function App() {
   };
 
   // Add note handler
-  const handleAddNote = (targetScreen: 'ramble-editor-dark' | 'ramble-editor-light') => {
+  const handleAddNote = () => {
     const newId = Math.random().toString();
     const newNote: RambleNote = {
       id: newId,
@@ -92,6 +120,7 @@ export default function App() {
     };
     setNotes([newNote, ...notes]);
     setSelectedNoteId(newId);
+    const targetScreen = theme === 'dark' ? 'ramble-editor-dark' : 'ramble-editor-light';
     navigateTo(targetScreen, 'slide_up');
   };
 
@@ -135,11 +164,9 @@ export default function App() {
           {currentScreen === 'ramble-landing-page' && (
             <LandingPage
               onNavigate={(purpose) => {
-                if (purpose === 'hero-cta') {
-                  navigateTo('ramble-home-light', 'push');
-                } else if (purpose === 'footer-cta') {
-                  navigateTo('ramble-home-dark', 'push');
-                }
+                // If they enter via Landing, route them directly based on their persisted theme
+                const targetHome = theme === 'dark' ? 'ramble-home-dark' : 'ramble-home-light';
+                navigateTo(targetHome, 'push');
               }}
             />
           )}
@@ -148,10 +175,11 @@ export default function App() {
             <HomeDark
               notes={notes}
               onDeleteNote={handleDeleteNote}
-              onAddNote={() => handleAddNote('ramble-editor-dark')}
-              onSelectNote={(note) => handleSelectNote(note, 'ramble-editor-dark')}
-              onToggleTheme={() => navigateTo('ramble-home-light', 'none')}
+              onAddNote={handleAddNote}
+              onSelectNote={handleSelectNote}
+              onToggleTheme={handleToggleTheme}
               onLogoClick={() => navigateTo('ramble-landing-page', 'push_back')}
+              onSignOut={handleSignOut}
             />
           )}
 
@@ -159,11 +187,12 @@ export default function App() {
             <HomeLight
               notes={notes}
               onDeleteNote={handleDeleteNote}
-              onAddNote={() => handleAddNote('ramble-editor-light')}
-              onSelectNote={(note) => handleSelectNote(note, 'ramble-editor-light')}
-              onToggleTheme={() => navigateTo('ramble-home-dark', 'none')}
+              onAddNote={handleAddNote}
+              onSelectNote={handleSelectNote}
+              onToggleTheme={handleToggleTheme}
               onLogoClick={() => navigateTo('ramble-landing-page', 'push_back')}
-              onProfileClick={() => navigateTo('ramble-editor-dark', 'none')}
+              onProfileClick={() => navigateTo(theme === 'dark' ? 'ramble-editor-dark' : 'ramble-editor-light', 'none')}
+              onSignOut={handleSignOut}
             />
           )}
 
@@ -171,10 +200,11 @@ export default function App() {
             <EditorDark
               note={activeNote}
               onUpdateNote={handleUpdateNote}
-              onToggleTheme={() => navigateTo('ramble-editor-light', 'none')}
+              onToggleTheme={handleToggleTheme}
               onLogoClick={() => navigateTo('ramble-home-dark', 'push_back')}
               customCompanions={customCompanions}
               onCreateCompanion={handleCreateCompanion}
+              onSignOut={handleSignOut}
             />
           )}
 
@@ -182,10 +212,11 @@ export default function App() {
             <EditorLight
               note={activeNote}
               onUpdateNote={handleUpdateNote}
-              onToggleTheme={() => navigateTo('ramble-editor-dark', 'none')}
+              onToggleTheme={handleToggleTheme}
               onLogoClick={() => navigateTo('ramble-home-light', 'push_back')}
               customCompanions={customCompanions}
               onCreateCompanion={handleCreateCompanion}
+              onSignOut={handleSignOut}
             />
           )}
         </motion.div>

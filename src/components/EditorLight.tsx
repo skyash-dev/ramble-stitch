@@ -14,6 +14,7 @@ interface EditorLightProps {
   onLogoClick: () => void;
   customCompanions: Companion[];
   onCreateCompanion: (companion: Companion) => void;
+  onSignOut: () => void;
 }
 
 export default function EditorLight({
@@ -23,6 +24,7 @@ export default function EditorLight({
   onLogoClick,
   customCompanions,
   onCreateCompanion,
+  onSignOut,
 }: EditorLightProps) {
   // Sidebar state
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -364,9 +366,9 @@ export default function EditorLight({
             <div className="flex items-center gap-10">
               <span 
                 onClick={onLogoClick}
-                className="font-brand text-[22px] text-black cursor-pointer font-semibold tracking-wider select-none uppercase font-sans"
+                className="font-brand text-[22px] text-black cursor-pointer font-bold tracking-wider select-none uppercase"
               >
-                &nbsp;RAMBLE.
+                RAMBLE.
               </span>
             </div>
             
@@ -425,7 +427,10 @@ export default function EditorLight({
                           Settings
                         </button>
                         <button 
-                          onClick={onLogoClick}
+                          onClick={() => {
+                            setIsProfileOpen(false);
+                            onSignOut();
+                          }}
                           className="w-full text-left px-4 py-2 text-[13px] text-[#5d5e61] hover:text-black hover:bg-black/5 transition-colors flex items-center gap-2 cursor-pointer font-sans"
                         >
                           <LogOut className="h-4 w-4" />
